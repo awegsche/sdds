@@ -59,6 +59,11 @@ namespace sdds {
 			}
 
 			void read(std::istream& stream);
+
+			template<typename T>
+			T& as() {
+				return std::get<T>(value);
+			}
 		};
 
 		struct sddsarray {
@@ -86,6 +91,11 @@ namespace sdds {
 			}
 
 			void read(std::istream& stream);
+
+			template<typename T>
+			T& as() {
+				return std::get<T>(payload);
+			}
 		};
 
 		struct namelist {
@@ -107,6 +117,11 @@ namespace sdds {
 			namelist(const namelist& other)
 				: type(other.type), name(other.name), payload(other.payload)
 			{ }
+
+			template<typename T>
+			T& as() {
+				return std::get<T>(payload);
+			}
 
 			/// <summary>
 			/// Loading the descriptor from the file header.
@@ -133,6 +148,12 @@ namespace sdds {
 		void load(const std::string& filename, size_t bufsize=BufSize);
 
 		namelists::namelist& get_namelist(const std::string& name);
+
+		template<typename T>
+		T& get(const std::string& name) {
+			auto& nl = get_namelist(name);
+			return std::get<T>(nl.payload);
+		}
 
 	private:
 		std::vector<namelists::namelist> data_;
