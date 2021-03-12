@@ -93,7 +93,12 @@ namespace sdds {
 			void read(std::istream& stream);
 
 			template<typename T>
-			T& as() {
+			 T& as()  {
+				return std::get<T>(payload);
+			}
+
+			template<typename T>
+			const  T& as() const {
 				return std::get<T>(payload);
 			}
 		};
@@ -138,7 +143,7 @@ namespace sdds {
 			/// <param name="stream"></param>
 			void read_value(std::istream& stream);
 
-			bool operator==(const std::string& str);
+			bool operator==(const std::string& str) const;
 		};
 	}
 
@@ -148,11 +153,17 @@ namespace sdds {
 		void load(const std::string& filename, size_t bufsize=BufSize);
 
 		namelists::namelist& get_namelist(const std::string& name);
+		const namelists::namelist& get_namelist(const std::string& name) const;
+
+		template<typename T>
+		const T& get(const std::string& name) const {
+			auto& nl = get_namelist(name);
+			return std::get<T>(nl.payload);
+		}
 
 		template<typename T>
 		T& get(const std::string& name) {
-			auto& nl = get_namelist(name);
-			return std::get<T>(nl.payload);
+			return const_cast<T&>(static_cast<const SddsFile&>(*this).get<T>(name));
 		}
 
 	private:

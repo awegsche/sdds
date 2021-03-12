@@ -66,12 +66,16 @@ namespace sdds {
 		delete[] buffer;
 	}
 
-	namelists::namelist& SddsFile::get_namelist(const std::string& name)
+	const namelists::namelist& SddsFile::get_namelist(const std::string& name) const
 	{
 		auto found = std::find(data_.begin(), data_.end(), name);
 		if (found != data_.end())
 			return *found;
 		throw std::runtime_error("namelist not found");
+	}
+
+	namelists::namelist& SddsFile::get_namelist(const std::string& name) {
+		return const_cast<namelists::namelist&>(static_cast<const SddsFile&>(*this).get_namelist(name));
 	}
 
 	namespace namelists {
@@ -121,7 +125,7 @@ namespace sdds {
 			}
 		}
 
-		bool namelist::operator==(const std::string& str)
+		bool namelist::operator==(const std::string& str) const
 		{
 			return name == str;
 		}
