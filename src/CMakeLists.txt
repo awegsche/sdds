@@ -45,3 +45,4 @@ target_link_libraries(sdds PRIVATE
 	${Boost_REGEX_LIBRARY_RELEASE}
 )
 
+target_link_options(sdds PRIVATE -static-libgcc -static-libstdc++)
