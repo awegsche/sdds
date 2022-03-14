@@ -4,7 +4,7 @@
 #include "sddslib.h"
 #include <fstream>
 #include <sstream>
-#include "endian.h"
+#include "swap.h"
 
 #include <spdlog/spdlog.h>
 
