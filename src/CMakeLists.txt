@@ -23,10 +23,7 @@ set_property(TARGET sdds_test PROPERTY CXX_STANDARD 17)
 target_link_libraries(sdds_test PRIVATE
 	spdlog
     fmt
-	debug
-	${Boost_REGEX_LIBRARY_DEBUG}
-	optimized
-	${Boost_REGEX_LIBRARY_RELEASE}
+	Boost::regex
 )
 target_compile_definitions(sdds_test PRIVATE
     -DSPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_DEBUG
