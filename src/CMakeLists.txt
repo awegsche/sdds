@@ -13,7 +13,7 @@ add_executable (sdds_test
 	"main.cpp"
 	"sddslib.cpp"
 	"sddslib.h"
-	"endian.h"
+	"swap.h"
 	"endian_win.h"
 	"endian_gnu.h"
 )
@@ -33,7 +33,7 @@ target_compile_definitions(sdds_test PRIVATE -DSPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_
 # --------------------------------------------------------------------------------------------------
 # --- library --------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------------------
-add_library (sdds "sddslib.cpp" "sddslib.h" "endian.h" "endian_win.h" "endian_gnu.h")
+add_library (sdds "sddslib.cpp" "sddslib.h" "swap.h" "endian_win.h" "endian_gnu.h")
 
 target_include_directories(sdds PRIVATE ${Boost_INCLUDE_DIR})
 set_property(TARGET sdds PROPERTY CXX_STANDARD 17)
